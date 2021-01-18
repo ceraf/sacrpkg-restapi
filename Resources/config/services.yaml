@@ -1,1 +1,18 @@
 services:
+    sacrpkg_restapi.filter:
+        class: sacrpkg\RestapiBundle\Model\Filter
+        public: true
+        arguments:
+            - '@request_stack'
+
+
+    sacrpkg\RestapiBundle\Model\Filter: '@sacrpkg_restapi.filter'
+    
+    sacrpkg_restapi.paginator:
+        class: sacrpkg\RestapiBundle\Model\Paginator
+        public: true
+        arguments:
+            - '@request_stack'
+
+
+    sacrpkg\RestapiBundle\Model\Paginator: '@sacrpkg_restapi.paginator'
