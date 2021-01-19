@@ -12,6 +12,7 @@ class Filter
     const TYPE_STRING = 'string';
     const TYPE_ARRAY_STR = 'array_str';
     const TYPE_ARRAY_OPTION = 'array_option';
+    const TYPE_BOOL = 'bool';
     
     private $request;
     private $settings = null;
@@ -95,7 +96,17 @@ class Filter
     {
         return (string)$value;
     }
- 
+
+    protected function toBool($value, $params = [])
+    {
+        $res = false;
+        if (in_array($value, ['true', 'false'])) {
+            $res= ($value == 'true') ? true : false;
+        }        
+                    
+        return $res;
+    }
+
     protected function toArrayInt($value, $params = [])
     {
         return array_map('intval', explode(',', $value));

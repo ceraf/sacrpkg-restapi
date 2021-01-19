@@ -165,6 +165,12 @@ trait RestRepositoryTrait
         return $qb;
     }
 
+    protected function defaultBool(QueryBuilder $qb, string $key,
+                            $value, $fieldname = null): QueryBuilder
+    {
+        return $qb;
+    }
+
     /*
         q[accuracy=] 	Поиск по полю _tr.name
         Значениями accuracy могут быть значения:

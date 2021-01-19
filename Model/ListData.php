@@ -4,7 +4,6 @@ namespace sacrpkg\RestapiBundle\Model;
 
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\Collection;
-use App\Model\Core;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -52,7 +51,7 @@ abstract class ListData
             $this->fetch();
             
 		$res = [];	
-	//	if ($this->params['url'] ?? null)
+
 		$res['url'] = $this->request->server->get('REQUEST_URI');	
 		$res['data'] = $this->prepareCollection();
 		$res = $this->addDataToResult($res);
@@ -168,43 +167,7 @@ abstract class ListData
 		}
 
 		return $child;
-	}    
-	
-	protected function getTranslates($item)
-	{
-		$translations = [];
-		$langs = (Core::getInstance())->getLanguagesForTr();
-		foreach ($langs as $lang) {
-			$translate = [];
-			$translate['lang_id'] = $lang->getId();
-			$translate['lang_code'] = $lang->getCodeIso6391();
-			foreach($item->getTranslateField() as $tr) {
-				$name = $tr . $lang->getSlug();
-				$translate[$tr] = $item->$name;
-			}
-						
-			$translations[] = $translate;
-		}
-		return $translations;
-	}
-	
-    /*
-    protected function getPaginator(Request $request)
-    {
-        $paginator = new \stdClass;
-		
-		$itemsonpage = (int)$request->get('count', null);
-		$paginator->itemsonpage = ($itemsonpage && ($itemsonpage <= 10000)) ? $itemsonpage : $this->itemsonpage;
-		$paginator->currpage = (int)$request->get('page', 0);
-		if (!$paginator->currpage)
-			$paginator->currpage = 1;
-		
-		$paginator->currpage--;
-
-        return $paginator;        
-    }	
-    */
-	
+	}    	
     protected function beforeGetCollection()
     {
     }
@@ -214,17 +177,7 @@ abstract class ListData
     }
     
     protected function fetch()
-    {
-       // $this->sortby = $this->sortby ?? $this->sortfield_default;
-       // $this->sorttype = $this->sorttype ?? $this->sorttype_default;	
-       /*
-        $this->sortby = $this->request->get('sort', null) ?? $this->sortfield_default;
-        if (in_array($this->sortby[0], ['-', '+'])) {
-            $this->sorttype = ($this->sortby[0] == '+') ? 'ASC' : 'DESC';
-            $this->sortby = substr($this->sortby, 1);
-        }
-        $this->sorttype = $this->sorttype ?? $this->sorttype_default;	  
-*/        
+    {   
         try {
             $repository = $this->doctrine->getRepository($this->entityname);
                             
