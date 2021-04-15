@@ -13,6 +13,7 @@ class Filter
     const TYPE_ARRAY_STR = 'array_str';
     const TYPE_ARRAY_OPTION = 'array_option';
     const TYPE_BOOL = 'bool';
+    const TYPE_CUSTOM = 'custom';
     
     private $request;
     private $settings = null;
@@ -115,6 +116,11 @@ class Filter
     protected function toInt($value, $params = [])
     {
         return (int)$value;
+    }
+
+    protected function toCustom($value, $params = [])
+    {
+        return $value;
     }
     
     protected function toSearch($value, $params = [])
