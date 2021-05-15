@@ -52,7 +52,7 @@ class Paginator
 		$this->curr_page--;
 
         $sort_param = $this->request->get('sort', null);
-        if (in_array($sort_param[0], ['-', '+'])) {
+        if (in_array($sort_param[0] ?? null, ['-', '+'])) {
             $this->sorttype = ($sort_param[0] == '+') ? 'ASC' : 'DESC';
             $sort_param = substr($sort_param, 1);
         }
