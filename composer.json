@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=8.0.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "friendsofsymfony/rest-bundle": "^3.3",
