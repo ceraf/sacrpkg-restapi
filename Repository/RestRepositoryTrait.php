@@ -120,6 +120,24 @@ trait RestRepositoryTrait
     {
         return $this->defaultArrayStr($qb, $key, $value, $fieldname);
     }
+    
+    protected function defaultRangeDate(QueryBuilder $qb, string $key,
+                            $value, $fieldname = null): QueryBuilder
+    {
+        if (!$fieldname)
+            $fieldname = 'p.' . $key;
+
+        if ($value['from'] ?? null) {
+            $qb->andWhere($fieldname . ' >= :val'.$key.'_from')
+                ->setParameter('val'.$key.'_from', $value['from']);
+        }
+        if ($value['to'] ?? null) {
+            $qb->andWhere($fieldname . ' <= :val'.$key.'_to')
+                ->setParameter('val'.$key.'_to', $value['to']);
+        }
+            
+        return $qb;
+    }    
 
     protected function defaultArrayStr(QueryBuilder $qb, string $key,
                             $value, $fieldname = null): QueryBuilder

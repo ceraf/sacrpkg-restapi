@@ -72,9 +72,15 @@ abstract class ListData
     public function setParam(string $name, $value)
     {
         $this->params[$name] = $value;
+        $this->filter->setParam($name, $value);
         return $this;
     }		
 	
+    public function getParam(string $name)
+    {
+        return $this->params[$name] ?? null;
+    }
+    
 	public function setFilter(?array $filter)
 	{
         $this->filter = $filter;

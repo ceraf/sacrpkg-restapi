@@ -16,3 +16,14 @@ services:
 
 
     sacrpkg\RestapiBundle\Model\Paginator: '@sacrpkg_restapi.paginator'
+    
+    sacrpkg_restapi.action_factory:
+        class: sacrpkg\RestapiBundle\Model\Action\ActionFactory
+        public: true
+        arguments:
+            - '@doctrine'
+            - '@request_stack'
+            - '@validator'
+
+    
+    sacrpkg\RestapiBundle\Model\Action\ActionFactoryInterface: '@sacrpkg_restapi.action_factory'

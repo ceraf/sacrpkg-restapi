@@ -14,10 +14,12 @@ class Filter
     const TYPE_ARRAY_OPTION = 'array_option';
     const TYPE_BOOL = 'bool';
     const TYPE_CUSTOM = 'custom';
+    const TYPE_RANGEDATE = 'range_date';
     
-    private $request;
-    private $settings = null;
-    private $data = null;
+    protected $request;
+    protected $settings = null;
+    protected $data = null;
+    protected $params;
     
     public function __construct (RequestStack $requestStack)
     {
@@ -66,6 +68,17 @@ class Filter
         return $this;
     }
     
+    public function setParam(string $name, $value)
+    {
+        $this->params[$name] = $value;
+        return $this;
+    }	
+    
+    public function getParam(string $name)
+    {
+        return $this->params[$name] ?? null;
+    }
+    
     public function isUseFilter(): bool
     {
         return !is_null($this->data);
@@ -96,6 +109,18 @@ class Filter
     protected function toString($value, $params = [])
     {
         return (string)$value;
+    }
+
+    protected function toRangeDate($value, $params = [])
+    {
+        if ($value['from'] ?? null) {
+            $value['from'] = $value['from'].' 00:00:00';
+        }
+        if ($value['to'] ?? null) {
+            $value['to'] = $value['to'].' 23:59:59';
+        }        
+        
+        return $value;
     }
 
     protected function toBool($value, $params = [])

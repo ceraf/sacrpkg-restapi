@@ -6,12 +6,12 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class Paginator
 {
-    private $request;
-    private $items_on_page;
-    private $curr_page;
-    private $sortby;
-    private $sorttype;
-    private $sort_fields = ['id', 'uri'];
+    protected $request;
+    protected $items_on_page;
+    protected $curr_page;
+    protected $sortby;
+    protected $sorttype;
+    protected $sort_fields = ['id', 'uri'];
     protected $params;
     
     public function __construct (RequestStack $requestStack)
