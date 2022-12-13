@@ -151,8 +151,11 @@ abstract class ListData
 				if (!($listitemvalue instanceof Collection) && 
 						!($listitemvalue instanceof $this->entityname && !is_object($listitemvalue)))
                 {
-					if (gettype($listitemvalue) != 'object')
+					if (gettype($listitemvalue) != 'object') {
 						$child[$listitemkey] = $listitemvalue;
+                                       } else {
+                                                $child[$listitemkey] = $this->getSimpleSettings($listitemvalue, $listitemfield['collection_fields'] ?? null);
+                                       }
                 } elseif ($listitemvalue instanceof Collection) {
 					$childreen = [];
                     if ($listitemvalue->count()) {
